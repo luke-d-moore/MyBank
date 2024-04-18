@@ -5,4 +5,4 @@ Functionality, Access an Account from AccountNumber, Add Funds, Withdraw Funds, 
 
 Create Xunit test project to create all the tests for the desired functionality
 
-Then write the minimum amount of codd in each function to achieve the desired functionality
+Then write the minimum amount of code in each function to achieve the desired functionality
