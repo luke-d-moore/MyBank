@@ -1,0 +1,8 @@
+
+Create a new class library to store the code for the Bank
+
+Functionality, Access an Account from AccountNumber, Add Funds, Withdraw Funds, Transfer Funds to another account
+
+Create Xunit test project to create all the tests for the desired functionality
+
+Then write the minimum amount of codd in each function to achieve the desired functionality
