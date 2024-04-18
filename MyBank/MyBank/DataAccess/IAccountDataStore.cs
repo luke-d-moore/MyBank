@@ -2,7 +2,7 @@
 {
     public interface IAccountDataStore
     {
-        IAccount GetAccountById(Guid accountId);
+        IAccount GetAccount(long AccountNumber, string SortCode);
 
         void UpdateAccount(IAccount account);
     }

@@ -8,9 +8,9 @@
         {
             _accountDataStore = accountDataStore;
         }
-        public void TransferFunds(Guid fromAccountId, Guid toAccountId, decimal amount)
+        public bool TransferFunds(long fromAccountNumber, string fromSortCode, long toAccountNumber, string toSortCode, decimal amount)
         {
-
+            return true;
         }
     }
 }

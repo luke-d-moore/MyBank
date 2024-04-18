@@ -9,9 +9,9 @@
             _accountDataStore = accountDataStore;
         }
 
-        public void WithdrawFunds(Guid accountId, decimal amount)
+        public bool WithdrawFunds(long accountNumber, string sortCode, decimal amount)
         {
-
+            return true;
         }
     }
 }
