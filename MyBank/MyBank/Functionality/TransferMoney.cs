@@ -1,6 +1,6 @@
 ﻿namespace MyBank
 {
-    public class TransferMoney
+    public class TransferMoney : TransactionBase
     {
         private IAccountDataStore _accountDataStore;
 
@@ -8,6 +8,9 @@
         {
             _accountDataStore = accountDataStore;
         }
+
+        public override decimal Limit => throw new NotImplementedException();
+
         public bool TransferFunds(long fromAccountNumber, string fromSortCode, long toAccountNumber, string toSortCode, decimal amount)
         {
             return true;

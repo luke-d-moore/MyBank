@@ -1,6 +1,6 @@
 ﻿namespace MyBank
 {
-    public class WithdrawMoney
+    public class WithdrawMoney :TransactionBase
     {
         private IAccountDataStore _accountDataStore;
 
@@ -8,6 +8,8 @@
         {
             _accountDataStore = accountDataStore;
         }
+
+        public override decimal Limit => throw new NotImplementedException();
 
         public bool WithdrawFunds(long accountNumber, string sortCode, decimal amount)
         {
