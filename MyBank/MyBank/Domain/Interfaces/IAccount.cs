@@ -1,7 +1,4 @@
-﻿
-using static MyBank.Account;
-
-namespace MyBank
+﻿namespace MyBank
 {
     public interface IAccount
     {

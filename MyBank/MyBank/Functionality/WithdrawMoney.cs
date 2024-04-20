@@ -1,18 +1,17 @@
 ﻿namespace MyBank
 {
-    public class WithdrawMoney :TransactionBase
+    public static class WithdrawMoney
     {
-        private IAccountDataStore _accountDataStore;
+        private static decimal BasicLimit => 300;
 
-        public WithdrawMoney(IAccountDataStore accountDataStore)
+        public static bool WithdrawFunds(IAccount account, decimal amount)
         {
-            _accountDataStore = accountDataStore;
-        }
+            if (account.Withdrawn + amount > BasicLimit) throw new InvalidOperationException("Amount would exceed withdrawn limit");
+            if (account.Balance - amount < 0) throw new InvalidOperationException("Account has insufficient funds to make withdrawal");
 
-        public override decimal Limit => throw new NotImplementedException();
+            account.Balance -= amount;
+            account.Withdrawn += amount;
 
-        public bool WithdrawFunds(long accountNumber, string sortCode, decimal amount)
-        {
             return true;
         }
     }
