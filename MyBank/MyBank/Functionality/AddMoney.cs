@@ -11,7 +11,7 @@ namespace MyBank
             _accountDataStore = accountDataStore;
         }
 
-        public override decimal Limit => 10000;
+        public override decimal Limit => 10000; //set Payin Limit to 10,000
 
         public bool AddFunds(long accountNumber, string sortCode, decimal amount)
         {
@@ -30,7 +30,12 @@ namespace MyBank
             if (account == null) 
                 throw new InvalidDataException($"Account Could not be found with AccountNumber : {accountNumber} and SortCode : {sortCode}");
 
+            if (account.PaidIn + amount > Limit) throw new InvalidOperationException("Amount would exceed Pay in limit");
 
+            account.Balance += amount;
+            account.PaidIn += amount;
+
+            _accountDataStore.UpdateAccount(account);
 
             return true;
         }
