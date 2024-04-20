@@ -28,7 +28,7 @@ namespace MyBankTests
 
         private Account GetAccount(long AccountNumber, string SortCode, decimal PaidIn, decimal Withdrawn)
         {
-            var account = new Account()
+            return new Account()
             {
                 AccountNumber = AccountNumber,
                 SortCode = SortCode,
@@ -36,8 +36,6 @@ namespace MyBankTests
                 Withdrawn = Withdrawn,
                 PaidIn = PaidIn
             };
-
-            return account;
         }
         public static IEnumerable<object[]> ExceedLimitData =>
         new List<object[]>
