@@ -37,25 +37,6 @@ namespace MyBankTests
                 PaidIn = PaidIn
             };
         }
-        public static IEnumerable<object[]> ExceedLimitData =>
-        new List<object[]>
-        {
-            new object[] { 12345678, "12-34-56", 5 , "Amount would exceed Pay in limit"},
-            new object[] { 12345678, "12-34-56", 10000 , "Amount would exceed Pay in limit"},
-            new object[] { 12345678, "12-34-56", 2 , "Amount would exceed Pay in limit" }
-        };
-
-        [Theory, MemberData(nameof(ExceedLimitData))]
-        public void AddMoney_AmountExceedsLimit_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
-        {
-            //Arrange
-            _accountDataStore.Setup(x => x.GetAccount(AccountNumber, SortCode)).Returns(GetAccount(AccountNumber, SortCode, 9999, 0));
-            var exceptionType = typeof(InvalidOperationException);
-            // Act and Assert
-            var ex = Assert.Throws(exceptionType, () => _addMoney.AddFunds(AccountNumber, SortCode, Amount));
-
-            Assert.Equal(Message, ex.Message);
-        }
         public static IEnumerable<object[]> InvalidArgumentData =>
         new List<object[]>
         {
@@ -97,6 +78,25 @@ namespace MyBankTests
             //Arrange
             _accountDataStore.Setup(x => x.GetAccount(It.IsAny<long>(), It.IsAny<string>())).Returns(value: null);
             var exceptionType = typeof(InvalidDataException);
+            // Act and Assert
+            var ex = Assert.Throws(exceptionType, () => _addMoney.AddFunds(AccountNumber, SortCode, Amount));
+
+            Assert.Equal(Message, ex.Message);
+        }
+        public static IEnumerable<object[]> ExceedLimitData =>
+        new List<object[]>
+        {
+            new object[] { 12345678, "12-34-56", 5 , "Amount would exceed Pay in limit"},
+            new object[] { 12345678, "12-34-56", 10000 , "Amount would exceed Pay in limit"},
+            new object[] { 12345678, "12-34-56", 2 , "Amount would exceed Pay in limit" }
+        };
+
+        [Theory, MemberData(nameof(ExceedLimitData))]
+        public void AddMoney_AmountExceedsLimit_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
+        {
+            //Arrange
+            _accountDataStore.Setup(x => x.GetAccount(AccountNumber, SortCode)).Returns(GetAccount(AccountNumber, SortCode, 9999, 0));
+            var exceptionType = typeof(InvalidOperationException);
             // Act and Assert
             var ex = Assert.Throws(exceptionType, () => _addMoney.AddFunds(AccountNumber, SortCode, Amount));
 
