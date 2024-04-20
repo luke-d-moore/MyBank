@@ -67,7 +67,8 @@ namespace MyBank.Services
                 case eTransactionType.Withdraw:
                     WithdrawMoney.WithdrawFunds(account, amount);
                     break;
-                default: break;
+                default: 
+                    return false;
             }
             _accountDataStore.UpdateAccount(account);
             return true;
@@ -76,7 +77,6 @@ namespace MyBank.Services
     public enum eTransactionType
     {
         Add,
-        Withdraw,
-        Transfer
+        Withdraw
     }
 }
