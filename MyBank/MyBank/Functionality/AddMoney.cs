@@ -18,8 +18,8 @@ namespace MyBank
             if(amount <= 0) throw new ArgumentException("Amount must be greater than 0");
             if(accountNumber <= 0) throw new ArgumentException("AccountNumber must be greater than 0");
             if(string.IsNullOrEmpty(sortCode)) throw new ArgumentException("SortCode must not be null or empty");
-            if(accountNumber.ToString().Length != 8) throw new InvalidDataException($"AccountNumber must be 8 digits in length");
-            if(sortCode.ToString().Length != 8) throw new InvalidDataException($"SortCode must be 8 characters in length");
+            if(accountNumber.ToString().Length != 8) throw new ArgumentException($"AccountNumber must be 8 digits in length");
+            if(sortCode.ToString().Length != 8) throw new ArgumentException($"SortCode must be 8 characters in length");
             var r = new Regex(@"[0-9]{2}-[0-9]{2}-[0-9]{2}");
             //use [0-9] instead of \d because \d will match numbers from other languages and character sets
             //but only the numbers 0-9 are valid for bank sort codes
@@ -28,7 +28,7 @@ namespace MyBank
             var account = _accountDataStore.GetAccount(accountNumber, sortCode);
 
             if (account == null) 
-                throw new InvalidDataException($"Account Could not be found with AccountNumber : {accountNumber} and SortCode : {sortCode}");
+                throw new InvalidDataException($"Account could not be found with AccountNumber : {accountNumber} and SortCode : {sortCode}");
 
             if (account.PaidIn + amount > Limit) throw new InvalidOperationException("Amount would exceed Pay in limit");
 
