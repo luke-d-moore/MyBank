@@ -46,7 +46,10 @@ namespace MyBank.Services
             var fromAccount = ValidateAccount(fromAccountNumber, fromSortCode);
             var toAccount = ValidateAccount(toAccountNumber, toSortCode);
 
-            TransferMoney.TransferFunds(fromAccount, toAccount, amount); 
+            TransferMoney.TransferFunds(fromAccount, toAccount, amount);
+
+            _accountDataStore.UpdateAccount(fromAccount);
+            _accountDataStore.UpdateAccount(toAccount);
 
             return true;
         }
