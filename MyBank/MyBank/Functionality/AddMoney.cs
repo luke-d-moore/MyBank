@@ -1,4 +1,6 @@
-﻿namespace MyBank
+﻿using System.Text.RegularExpressions;
+
+namespace MyBank
 {
     public class AddMoney : TransactionBase, IAddMoney
     {
@@ -18,6 +20,10 @@
             if(string.IsNullOrEmpty(sortCode)) throw new ArgumentException("SortCode must not be null or empty");
             if(accountNumber.ToString().Length != 8) throw new InvalidDataException($"AccountNumber must be 8 digits in length");
             if(sortCode.ToString().Length != 8) throw new InvalidDataException($"SortCode must be 8 characters in length");
+            var r = new Regex(@"[0-9]{2}-[0-9]{2}-[0-9]{2}");
+            //use [0-9] instead of \d because \d will match numbers from other languages and character sets
+            //but only the numbers 0-9 are valid for bank sort codes
+            if (!r.Match(sortCode).Success) throw new ArgumentException("SortCode has incorrect format, expected format : 11-11-11");
 
             var account = _accountDataStore.GetAccount(accountNumber, sortCode);
 
