@@ -46,7 +46,7 @@ namespace MyBank.Services
             var fromAccount = ValidateAccount(fromAccountNumber, fromSortCode);
             var toAccount = ValidateAccount(toAccountNumber, toSortCode);
 
-            TransferMoney.TransferFunds(fromAccount, toAccount, amount);
+            TransactionFunctions.TransferFunds(fromAccount, toAccount, amount);
 
             _accountDataStore.UpdateAccount(fromAccount);
             _accountDataStore.UpdateAccount(toAccount);
@@ -61,11 +61,11 @@ namespace MyBank.Services
 
             switch (transactionType)
             {
-                case eTransactionType.Add: 
-                    AddMoney.AddFunds(account, amount);
+                case eTransactionType.Add:
+                    TransactionFunctions.AddFunds(account, amount);
                     break;
                 case eTransactionType.Withdraw:
-                    WithdrawMoney.WithdrawFunds(account, amount);
+                    TransactionFunctions.WithdrawFunds(account, amount);
                     break;
                 default: 
                     return false;
