@@ -15,7 +15,7 @@ namespace MyBankTests
         }
 
         [Fact]
-        public void TransactionService_ValidAddAmount_ReturnsTrue()
+        public void ExecuteTransaction_ValidAddAmount_ReturnsTrue()
         {
             //Arrange
             long accountNumber = 12345678;
@@ -27,7 +27,7 @@ namespace MyBankTests
             Assert.True(result);
         }
         [Fact]
-        public void TransactionService_ValidWithdrawAmount_ReturnsTrue()
+        public void ExecuteTransaction_ValidWithdrawAmount_ReturnsTrue()
         {
             //Arrange
             long accountNumber = 12345678;
@@ -39,7 +39,7 @@ namespace MyBankTests
             Assert.True(result);
         }
         [Fact]
-        public void TransactionService_ValidTransferAmount_ReturnsTrue()
+        public void ExecuteTransaction_ValidTransferAmount_ReturnsTrue()
         {
             //Arrange
             var fromAccount = GetAccount(12345678, "12-34-56", 0, 0);
@@ -80,7 +80,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(InvalidArgumentData))]
-        public void TransactionService_InvalidArgument_ThrowsArgumentException(long AccountNumber, string SortCode, decimal Amount, string Message)
+        public void ExecuteTransaction_InvalidArgument_ThrowsArgumentException(long AccountNumber, string SortCode, decimal Amount, string Message)
         {
             // Arrange
             var exceptionType = typeof(ArgumentException);
@@ -116,7 +116,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(InvalidTransferArgumentData))]
-        public void TransactionService_InvalidTransferArgument_ThrowsArgumentException(long fromAccountNumber, string fromSortCode, long toAccountNumber, string toSortCode, decimal Amount, string Message)
+        public void ExecuteTransaction_InvalidTransferArgument_ThrowsArgumentException(long fromAccountNumber, string fromSortCode, long toAccountNumber, string toSortCode, decimal Amount, string Message)
         {
             // Arrange
             var exceptionType = typeof(ArgumentException);
@@ -138,7 +138,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(InvalidAccountData))]
-        public void TransactionService_InValidAccountData_ThrowsDataException(long AccountNumber, string SortCode, decimal Amount, string Message)
+        public void ExecuteTransaction_InValidAccountData_ThrowsDataException(long AccountNumber, string SortCode, decimal Amount, string Message)
         {
             //Arrange
             _accountDataStore.Setup(x => x.GetAccount(It.IsAny<long>(), It.IsAny<string>())).Returns(value: null);
@@ -156,7 +156,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(InvalidTransferAccountData))]
-        public void TransactionService_InValidTransferAccountData_ThrowsDataException(long fromAccountNumber, string fromSortCode, long toAccountNumber, string toSortCode, decimal Amount, string Message)
+        public void ExecuteTransaction_InValidTransferAccountData_ThrowsDataException(long fromAccountNumber, string fromSortCode, long toAccountNumber, string toSortCode, decimal Amount, string Message)
         {
             //Arrange
             _accountDataStore.Setup(x => x.GetAccount(It.IsAny<long>(), It.IsAny<string>())).Returns(value: null);

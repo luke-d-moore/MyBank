@@ -6,7 +6,7 @@ namespace MyBankTests
     public class TransactionFunctionsTests
     {
         [Fact]
-        public void TransactionFunctions_ValidTransferAmount_ReturnsTrue()
+        public void TransferFunds_ValidTransferAmount_ReturnsTrue()
         {
             //Arrange
             var fromAccount = GetTransferAccount(12345678, "12-34-56", 0, 0);
@@ -36,7 +36,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(ExceedTransferLimitData))]
-        public void TransactionFunctions_AmountExceedsTransferLimit_ThrowsInvalidOperationException(decimal Amount, string Message)
+        public void TransferFunds_AmountExceedsTransferLimit_ThrowsInvalidOperationException(decimal Amount, string Message)
         {
             //Arrange
             var fromAccount = GetTransferAccount(12345678, "12-34-56", 0, 999);
@@ -55,7 +55,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(InsufficientTransferFundsData))]
-        public void TransactionFunctions_AmountExceedsTransferBalance_ThrowsInvalidOperationException(decimal Amount, string Message)
+        public void TransferFunds_AmountExceedsTransferBalance_ThrowsInvalidOperationException(decimal Amount, string Message)
         {
             //Arrange
             var fromAccount = GetTransferAccount(12345678, "12-34-56", 0, 0);
@@ -67,7 +67,7 @@ namespace MyBankTests
             Assert.Equal(Message, ex.Message);
         }
         [Fact]
-        public void TransactionFunctions_ValidAddAmount_ReturnsTrue()
+        public void AddFunds_ValidAddAmount_ReturnsTrue()
         {
             //Arrange
             long accountNumber = 12345678;
@@ -98,7 +98,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(ExceedAddLimitData))]
-        public void TransactionFunctions_AmountExceedsAddLimit_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
+        public void AddFunds_AmountExceedsAddLimit_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
         {
             //Arrange
             var account = GetAddAccount(AccountNumber, SortCode, 9999, 0);
@@ -110,7 +110,7 @@ namespace MyBankTests
         }
 
         [Fact]
-        public void TransactionFunctions_ValidWithdrawAmount_ReturnsTrue()
+        public void WithdrawFunds_ValidWithdrawAmount_ReturnsTrue()
         {
             //Arrange
             long accountNumber = 12345678;
@@ -141,7 +141,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(ExceedWithdrawLimitData))]
-        public void TransactionFunctions_AmountExceedsWithdrawLimit_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
+        public void WithdrawFunds_AmountExceedsWithdrawLimit_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
         {
             //Arrange
             var account = GetWithdrawAccount(AccountNumber, SortCode, 0, 299, 200);
@@ -159,7 +159,7 @@ namespace MyBankTests
         };
 
         [Theory, MemberData(nameof(InsufficientWithdrawFundsData))]
-        public void TransactionFunctions_AmountExceedsWithdrawBalance_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
+        public void WithdrawFunds_AmountExceedsWithdrawBalance_ThrowsInvalidOperationException(long AccountNumber, string SortCode, decimal Amount, string Message)
         {
             //Arrange
             var account = GetWithdrawAccount(AccountNumber, SortCode, 0, 0, 200);
